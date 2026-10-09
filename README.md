@@ -128,7 +128,7 @@ Licensed under the GNU General Public License, version 2 or (at your option) any
 
 #### Removed
 
-- The "Font…" button. The panel now always uses Meiryo 10 pt (or the system's sans-serif font if Meiryo is not available). Font settings saved by earlier versions are ignored.
+- The "Font…" button. The panel now always uses Meiryo 10 pt (or the system's sans-serif font if Meiryo is not available).
 
 See [CHANGELOG.md](CHANGELOG.md) for full history.
 
@@ -264,7 +264,7 @@ GNU General Public License バージョン2、またはそれ以降のバージ�
 
 #### 削除
 
-- 「フォント…」ボタンを削除しました。パネルのフォントは常にメイリオ 10pt（メイリオがない場合はシステムのsans-serif系フォント）になります。以前のバージョンで保存したフォント設定は使用しません。
+- 「フォント…」ボタンを削除しました。パネルのフォントは常にメイリオ 10pt（メイリオがない場合はシステムのsans-serif系フォント）になります。
 
 全履歴は [CHANGELOG.md](CHANGELOG.md) を参照。
 
