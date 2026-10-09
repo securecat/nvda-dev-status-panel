@@ -14,8 +14,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
-- All strings in the code are now in English, and Japanese is provided through translation files (`locale/ja`). Apart from the button labels below, the Japanese UI is unchanged from v0.4.1.
+- All strings in the code are now in English, and Japanese is provided through translation files (`locale/ja`).
 - The labels of the "Toggle mode" and "Refresh virtual buffer" buttons now show the key in parentheses on a second line. This keeps the buttons from becoming too wide and makes them easier to click.
+- The initial height of the panel now also includes room for the note shown while the panel is in use.
+
+### Removed
+
+- The "Font…" button. The panel now always uses Meiryo 10 pt (or the system's sans-serif font if Meiryo is not available). Font settings saved by earlier versions are ignored.
 
 ## [0.4.1] - 2026-10-09
 
@@ -95,8 +100,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### 変更
 
-- コード内の文字列を英語にし、日本語は翻訳ファイル（`locale/ja`）から表示するようにしました。次のボタンのラベルを除き、日本語表示の内容はv0.4.1から変わりません。
+- コード内の文字列を英語にし、日本語は翻訳ファイル（`locale/ja`）から表示するようにしました。
 - 「モード切替」「仮想バッファ再読み込み」ボタンのラベルを2行にし、括弧内のキー名を2行目に表示するようにしました。ボタンが横に長くなりすぎず、クリックしやすくなります。
+- パネルの初期の高さに、パネル操作中に表示される注釈の分も含めるようにしました。
+
+### 削除
+
+- 「フォント…」ボタンを削除しました。パネルのフォントは常にメイリオ 10pt（メイリオがない場合はシステムのsans-serif系フォント）になります。以前のバージョンで保存したフォント設定は使用しません。
 
 ## [0.4.1] - 2026-10-09
 

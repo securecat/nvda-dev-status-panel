@@ -144,11 +144,6 @@ msgstr "監視を有効にする"
 msgid "Keep this panel on top"
 msgstr "このパネルを最前面に表示"
 
-#. Translators: Button label.
-#: addon/globalPlugins/devStatusPanel/__init__.py:249
-msgid "Font…"
-msgstr "フォント…"
-
 #. Translators: Note shown while the panel itself has focus.
 #: addon/globalPlugins/devStatusPanel/__init__.py:435
 msgid ""

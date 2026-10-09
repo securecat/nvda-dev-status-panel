@@ -20,7 +20,6 @@ When verifying web pages or apps with NVDA, it is often hard to tell why somethi
 - While you operate the panel, it keeps showing the state of the previous app
 - "Enable monitoring" checkbox to pause updates (almost zero load while paused)
 - "Keep this panel on top" checkbox
-- Font selection
 - Remembers panel size, position and settings
 - English and Japanese UI, following NVDA's language setting
 
@@ -44,7 +43,7 @@ When verifying web pages or apps with NVDA, it is often hard to tell why somethi
 
 ## Settings file
 
-Panel size, position, font and checkbox states are saved in `devStatusPanel.json` in NVDA's user configuration folder.
+Panel size, position and checkbox states are saved in `devStatusPanel.json` in NVDA's user configuration folder.
 
 - Installed NVDA: `%APPDATA%\nvda\devStatusPanel.json`
 - Portable NVDA: `userConfig\devStatusPanel.json` in the portable folder
@@ -121,8 +120,13 @@ Licensed under the GNU General Public License, version 2 or (at your option) any
 
 #### Changed
 
-- All strings in the code are now in English, and Japanese is provided through translation files (`locale/ja`). Apart from the button labels below, the Japanese UI is unchanged from v0.4.1.
+- All strings in the code are now in English, and Japanese is provided through translation files (`locale/ja`).
 - The labels of the "Toggle mode" and "Refresh virtual buffer" buttons now show the key in parentheses on a second line. This keeps the buttons from becoming too wide and makes them easier to click.
+- The initial height of the panel now also includes room for the note shown while the panel is in use.
+
+#### Removed
+
+- The "Font…" button. The panel now always uses Meiryo 10 pt (or the system's sans-serif font if Meiryo is not available). Font settings saved by earlier versions are ignored.
 
 See [CHANGELOG.md](CHANGELOG.md) for full history.
 
@@ -150,7 +154,6 @@ NVDAでWebページやアプリを検証していると、読み上げられな�
 - パネルを操作している間は、直前のアプリの状態を表示し続ける
 - 「監視を有効にする」チェックボックスで更新を一時停止（停止中の負荷はほぼゼロ）
 - 「このパネルを最前面に表示」チェックボックス
-- フォントの変更
 - パネルのサイズ、位置、設定を記憶
 - 日本語と英語に対応（NVDAの言語設定に従って切り替え）
 
@@ -174,7 +177,7 @@ NVDAでWebページやアプリを検証していると、読み上げられな�
 
 ## 設定ファイル
 
-パネルのサイズ、位置、フォント、チェックボックスの状態は、NVDAのユーザー設定フォルダ内の `devStatusPanel.json` に保存されます。
+パネルのサイズ、位置、チェックボックスの状態は、NVDAのユーザー設定フォルダ内の `devStatusPanel.json` に保存されます。
 
 - インストール版のNVDA：`%APPDATA%\nvda\devStatusPanel.json`
 - ポータブル版のNVDA：ポータブル版フォルダ内の `userConfig\devStatusPanel.json`
@@ -251,8 +254,13 @@ GNU General Public License バージョン2、またはそれ以降のバージ�
 
 #### 変更
 
-- コード内の文字列を英語にし、日本語は翻訳ファイル（`locale/ja`）から表示するようにしました。次のボタンのラベルを除き、日本語表示の内容はv0.4.1から変わりません。
+- コード内の文字列を英語にし、日本語は翻訳ファイル（`locale/ja`）から表示するようにしました。
 - 「モード切替」「仮想バッファ再読み込み」ボタンのラベルを2行にし、括弧内のキー名を2行目に表示するようにしました。ボタンが横に長くなりすぎず、クリックしやすくなります。
+- パネルの初期の高さに、パネル操作中に表示される注釈の分も含めるようにしました。
+
+#### 削除
+
+- 「フォント…」ボタンを削除しました。パネルのフォントは常にメイリオ 10pt（メイリオがない場合はシステムのsans-serif系フォント）になります。以前のバージョンで保存したフォント設定は使用しません。
 
 全履歴は [CHANGELOG.md](CHANGELOG.md) を参照。
 

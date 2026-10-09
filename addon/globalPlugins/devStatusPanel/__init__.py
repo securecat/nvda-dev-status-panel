@@ -41,11 +41,11 @@ DEFAULT_SETTINGS = {
 	"height": None,  # None なら内容に合わせた高さで開く
 	"alwaysOnTop": True,
 	"monitoring": True,
-	"fontFace": None,  # None なら sans-serif 系を自動選択
-	"fontSize": 10,
 }
 
-# 自動選択するsans-serif系フォントの候補（上から順に、インストールされているものを使う）
+# パネルのフォントサイズ（pt）
+FONT_SIZE = 10
+# 使用するsans-serif系フォントの候補（上から順に、インストールされているものを使う）
 SANS_SERIF_CANDIDATES = ("Meiryo", "メイリオ")
 
 
@@ -57,7 +57,9 @@ def loadSettings():
 	settings = dict(DEFAULT_SETTINGS)
 	try:
 		with open(_settingsPath(), encoding="utf-8") as f:
-			settings.update(json.load(f))
+			loaded = json.load(f)
+		# 廃止した項目（v0.3.0〜v0.4.1 の fontFace・fontSize など）は読み捨てる
+		settings.update({k: v for k, v in loaded.items() if k in DEFAULT_SETTINGS})
 	except FileNotFoundError:
 		pass
 	except Exception:
@@ -76,9 +78,7 @@ def saveSettings(settings):
 		log.debugWarning("devStatusPanel: failed to save settings", exc_info=True)
 
 
-def resolveFontFace(face):
-	if face and wx.FontEnumerator.IsValidFacename(face):
-		return face
+def resolveFontFace():
 	for candidate in SANS_SERIF_CANDIDATES:
 		if wx.FontEnumerator.IsValidFacename(candidate):
 			return candidate
@@ -204,6 +204,12 @@ def describeState(focus):
 # ---------------------------------------------------------------------------
 
 _GA_ROOT = 2
+
+
+def inUseNote():
+	# Translators: Note shown while the panel itself has focus.
+	return _("Note: Showing the state of the previous app because the panel is in use.")
+
 _BASE_STYLE = wx.CAPTION | wx.CLOSE_BOX | wx.RESIZE_BORDER | wx.FRAME_TOOL_WINDOW
 
 
@@ -251,17 +257,12 @@ class StatusPanel(wx.Frame):
 
 		self.toggleButton = wx.Button(panel)
 		self.refreshButton = wx.Button(panel)
-		# Translators: Button label.
-		self.fontButton = wx.Button(panel, label=_("Font…"))
 		self.toggleButton.Bind(wx.EVT_BUTTON, lambda e: self.plugin.runOnTarget(self.plugin.doToggleMode))
 		self.refreshButton.Bind(wx.EVT_BUTTON, lambda e: self.plugin.runOnTarget(self.plugin.doRefreshBuffer))
-		self.fontButton.Bind(wx.EVT_BUTTON, self.onChooseFont)
 
 		buttons = wx.BoxSizer(wx.HORIZONTAL)
 		buttons.Add(self.toggleButton, flag=wx.RIGHT, border=6)
-		buttons.Add(self.refreshButton, flag=wx.RIGHT, border=6)
-		# 2行のボタンと高さをそろえる
-		buttons.Add(self.fontButton, flag=wx.EXPAND)
+		buttons.Add(self.refreshButton)
 
 		root = wx.BoxSizer(wx.VERTICAL)
 		# 注釈は一番上（表示するときだけ領域を取る）
@@ -289,14 +290,31 @@ class StatusPanel(wx.Frame):
 	# --- サイズと位置の記憶 -----------------------------------------------
 
 	def fitHeightToContent(self):
-		"""高さが内容より足りなければ、内容がすべて見える高さまで広げる。"""
+		"""高さが内容より足りなければ、内容がすべて見える高さまで広げる。
+
+		注釈が非表示のときも、パネル操作中に注釈が出る分の高さを確保しておく。
+		"""
 		if not self:
 			return
+		# 表示前でも、パネルの幅（折り返し幅の計算に使う）をウィンドウに合わせておく
+		self.Layout()
 		self.panel.Layout()
 		needed = self.rootSizer.GetMinSize().height
+		if not self.note.IsShown():
+			needed += self._noteHeight()
 		width, height = self.GetClientSize()
 		if height < needed:
 			self.SetClientSize((width, needed))
+
+	def _noteHeight(self):
+		"""パネル操作中の注釈を、今の幅で折り返して表示したときの高さ（上の余白を含む）。"""
+		# 非表示の注釈に一時的に文言を入れて測り、元に戻す
+		self.note.SetLabel(inUseNote())
+		self.note.Wrap(self._wrapWidth(self.note))
+		height = self.note.GetBestSize().height
+		self.note.SetLabel(self._raw.get(self.note, ""))
+		self.note.Wrap(self._wrapWidth(self.note))
+		return height + 8
 
 	def _restoreGeometry(self):
 		s = self.settings
@@ -340,34 +358,20 @@ class StatusPanel(wx.Frame):
 	# --- フォント ---------------------------------------------------------
 
 	def applyFont(self):
-		s = self.settings
-		face = resolveFontFace(s["fontFace"])
-		info = wx.FontInfo(int(s["fontSize"]))
+		face = resolveFontFace()
+		info = wx.FontInfo(FONT_SIZE)
 		info = info.FaceName(face) if face else info.Family(wx.FONTFAMILY_SWISS)
 		font = wx.Font(info)
 		for ctrl in [*self.titles, *self.labels.values(), self.note,
 				self.monitorCheck, self.topCheck,
-				self.toggleButton, self.refreshButton, self.fontButton]:
+				self.toggleButton, self.refreshButton]:
 			ctrl.SetFont(font)
 		self.labels["mode"].SetFont(font.Bold().Larger())
 		# ボタン上の空きを「1行分」にする
 		self.buttonSpacer.SetMinSize((0, self.labels["app"].GetCharHeight()))
-		for button in (self.toggleButton, self.refreshButton, self.fontButton):
+		for button in (self.toggleButton, self.refreshButton):
 			self._fitButton(button)
 		self._rewrapAll()
-
-	def onChooseFont(self, evt):
-		data = wx.FontData()
-		data.SetInitialFont(self.labels["app"].GetFont())
-		dlg = wx.FontDialog(self, data)
-		if dlg.ShowModal() == wx.ID_OK:
-			chosen = dlg.GetFontData().GetChosenFont()
-			self.settings["fontFace"] = chosen.GetFaceName()
-			self.settings["fontSize"] = chosen.GetPointSize()
-			saveSettings(self.settings)
-			self.applyFont()
-			self.fitHeightToContent()
-		dlg.Destroy()
 
 	# --- チェックボックス -------------------------------------------------
 
@@ -448,10 +452,7 @@ class StatusPanel(wx.Frame):
 		for key in ("mode", "buffer", "object", "app"):
 			self._set(self.labels[key], info[key])
 		self._set(self.labels["nvdaKey"], " / ".join(getNVDAKeyNames()))
-		self._setNote(
-			# Translators: Note shown while the panel itself has focus.
-			_("Note: Showing the state of the previous app because the panel is in use.") if usingLast else ""
-		)
+		self._setNote(inUseNote() if usingLast else "")
 		self._updateButtonLabels()
 		# 折り返しで行数が変わる場合もあるので再配置
 		self.panel.Layout()

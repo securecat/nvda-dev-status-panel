@@ -149,11 +149,6 @@ msgstr ""
 msgid "Keep this panel on top"
 msgstr ""
 
-#. Translators: Button label.
-#: addon/globalPlugins/devStatusPanel/__init__.py:249
-msgid "Font…"
-msgstr ""
-
 #. Translators: Note shown while the panel itself has focus.
 #: addon/globalPlugins/devStatusPanel/__init__.py:435
 msgid ""
