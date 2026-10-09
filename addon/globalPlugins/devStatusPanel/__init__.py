@@ -254,6 +254,8 @@ class StatusPanel(wx.Frame):
 		# 折り返し前の元テキスト（Wrap() はラベルに改行を挿入するため別に持つ）
 		self._raw = {}
 		self._saveTimer = None
+		# パネル内で最後にフォーカスがあったコントロール（アクティブ化されたときに戻す先）
+		self._lastFocus = None
 
 		# コントロールは表示順に作る（Tabキーやオブジェクトナビゲーションの順序になるため）
 		# 上段：操作ボタン
@@ -325,6 +327,8 @@ class StatusPanel(wx.Frame):
 		self.Bind(wx.EVT_CLOSE, self.onClose)
 		self.Bind(wx.EVT_SIZE, self.onSize)
 		self.Bind(wx.EVT_MOVE, self.onMove)
+		self.Bind(wx.EVT_ACTIVATE, self.onActivate)
+		panel.Bind(wx.EVT_CHILD_FOCUS, self.onChildFocus)
 
 	# --- サイズと位置の記憶 -----------------------------------------------
 
@@ -412,6 +416,39 @@ class StatusPanel(wx.Frame):
 			0, 0, 0, 0,
 			_SWP_NOMOVE | _SWP_NOSIZE | _SWP_NOACTIVATE,
 		)
+		# それでもオンにしたときにフォーカスが外れるので、少し待ってからチェックボックスに戻す
+		# （操作した直後なので、パネルが非アクティブになっていたら前面に戻す）
+		wx.CallLater(100, self._restoreFocus, True)
+
+	# --- フォーカス -------------------------------------------------------
+
+	def _focusables(self):
+		return (self.toggleButton, self.refreshButton, self.monitorCheck, self.topCheck)
+
+	def onChildFocus(self, evt):
+		evt.Skip()
+		if evt.GetWindow() in self._focusables():
+			self._lastFocus = evt.GetWindow()
+
+	def onActivate(self, evt):
+		evt.Skip()
+		if evt.GetActive():
+			wx.CallAfter(self._restoreFocus)
+
+	def _restoreFocus(self, reactivate=False):
+		"""最後にフォーカスがあったコントロール（初回は「モード切替」）にフォーカスする。
+
+		reactivate が False なら、パネルがアクティブなときだけ行う。
+		"""
+		if not self or not self.IsShown():
+			return
+		if not self.IsActive():
+			if not reactivate:
+				return
+			self.Raise()
+		target = self._lastFocus or self.toggleButton
+		if wx.Window.FindFocus() is not target:
+			target.SetFocus()
 
 	# --- 表示 -------------------------------------------------------------
 
