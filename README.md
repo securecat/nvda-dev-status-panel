@@ -109,7 +109,7 @@ Licensed under the GNU General Public License, version 2 or (at your option) any
 
 ## Changelog
 
-### [1.0.0] - 2026-10-09
+### [1.0.0] - 2026-10-10
 
 #### Added
 
@@ -245,7 +245,7 @@ GNU General Public License バージョン2、またはそれ以降のバージ�
 
 ## 変更履歴
 
-### [1.0.0] - 2026-10-09
+### [1.0.0] - 2026-10-10
 
 #### 追加
 
