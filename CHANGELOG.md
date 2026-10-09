@@ -16,7 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - All strings in the code are now in English, and Japanese is provided through translation files (`locale/ja`).
 - The labels of the "Toggle mode" and "Refresh virtual buffer" buttons now show the key in parentheses on a second line. This keeps the buttons from becoming too wide and makes them easier to click.
-- The area for the note at the top of the panel is now always reserved, even when no note is shown, so the layout no longer shifts when a note appears or disappears.
+- New panel layout. The buttons and the checkboxes (side by side) are now at the top, followed by a divider, the note and the status rows. The status rows are now in the order Mode, Virtual buffer, NVDA key, App and Focus, so that a long Focus value only extends downward. The area for the note is always reserved, even when no note is shown, so the layout does not shift when a note appears or disappears.
 
 ### Removed
 
@@ -102,7 +102,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - コード内の文字列を英語にし、日本語は翻訳ファイル（`locale/ja`）から表示するようにしました。
 - 「モード切替」「仮想バッファ再読み込み」ボタンのラベルを2行にし、括弧内のキー名を2行目に表示するようにしました。ボタンが横に長くなりすぎず、クリックしやすくなります。
-- パネル上部の注釈の領域を、注釈がないときも常に確保するようにしました。注釈の表示・非表示でレイアウトがずれなくなります。
+- パネルのレイアウトを変更しました。ボタンとチェックボックス（横並び）を上部に移し、その下に区切り線、注釈、状態表示を並べています。状態表示は「モード」「仮想バッファ」「NVDA制御キー」「アプリ」「フォーカス」の順にし、行数が変わりやすいフォーカスは最後に置いて、長くなっても下に伸びるだけにしました。注釈の領域は注釈がないときも確保しているので、注釈の表示・非表示でレイアウトがずれません。
 
 ### 削除
 

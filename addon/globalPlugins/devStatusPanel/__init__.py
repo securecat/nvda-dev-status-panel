@@ -247,27 +247,17 @@ class StatusPanel(wx.Frame):
 		self._raw = {}
 		self._saveTimer = None
 
-		self.grid = grid = wx.FlexGridSizer(cols=2, vgap=4, hgap=8)
-		grid.AddGrowableCol(1)
-		self.labels = {}
-		self.titles = []
-		for key, title in (
-			# Translators: Row labels in the panel.
-			("mode", _("Mode:")),
-			("buffer", _("Virtual buffer:")),
-			("object", _("Focus:")),
-			("app", _("App:")),
-			("nvdaKey", _("NVDA key:")),
-		):
-			titleCtrl = wx.StaticText(panel, label=title)
-			self.titles.append(titleCtrl)
-			grid.Add(titleCtrl)
-			text = wx.StaticText(panel, label="-")
-			grid.Add(text, flag=wx.EXPAND)
-			self.labels[key] = text
+		# コントロールは表示順に作る（Tabキーやオブジェクトナビゲーションの順序になるため）
+		# 上段：操作ボタン
+		self.toggleButton = wx.Button(panel)
+		self.refreshButton = wx.Button(panel)
+		self.toggleButton.Bind(wx.EVT_BUTTON, lambda e: self.plugin.runOnTarget(self.plugin.doToggleMode))
+		self.refreshButton.Bind(wx.EVT_BUTTON, lambda e: self.plugin.runOnTarget(self.plugin.doRefreshBuffer))
+		buttons = wx.BoxSizer(wx.HORIZONTAL)
+		buttons.Add(self.toggleButton, flag=wx.RIGHT, border=6)
+		buttons.Add(self.refreshButton)
 
-		self.note = wx.StaticText(panel, label="")
-		self.note.SetForegroundColour(wx.Colour(200, 0, 0))
+		# 中段：チェックボックス（横並び）
 		# Translators: Checkbox label.
 		self.monitorCheck = wx.CheckBox(panel, label=_("Enable monitoring"))
 		self.monitorCheck.SetValue(self.settings["monitoring"])
@@ -276,25 +266,42 @@ class StatusPanel(wx.Frame):
 		self.topCheck = wx.CheckBox(panel, label=_("Keep this panel on top"))
 		self.topCheck.SetValue(self.settings["alwaysOnTop"])
 		self.topCheck.Bind(wx.EVT_CHECKBOX, self.onTopToggle)
+		checks = wx.BoxSizer(wx.HORIZONTAL)
+		checks.Add(self.monitorCheck, flag=wx.RIGHT, border=16)
+		checks.Add(self.topCheck)
 
-		self.toggleButton = wx.Button(panel)
-		self.refreshButton = wx.Button(panel)
-		self.toggleButton.Bind(wx.EVT_BUTTON, lambda e: self.plugin.runOnTarget(self.plugin.doToggleMode))
-		self.refreshButton.Bind(wx.EVT_BUTTON, lambda e: self.plugin.runOnTarget(self.plugin.doRefreshBuffer))
+		divider = wx.StaticLine(panel)
 
-		buttons = wx.BoxSizer(wx.HORIZONTAL)
-		buttons.Add(self.toggleButton, flag=wx.RIGHT, border=6)
-		buttons.Add(self.refreshButton)
+		# 下段：注釈と状態表示
+		self.note = wx.StaticText(panel, label="")
+		self.note.SetForegroundColour(wx.Colour(200, 0, 0))
+		self.grid = grid = wx.FlexGridSizer(cols=2, vgap=4, hgap=8)
+		grid.AddGrowableCol(1)
+		self.labels = {}
+		self.titles = []
+		# 行数が変わりやすいフォーカスは最後に置き、増えても下に伸びるだけにする
+		for key, title in (
+			# Translators: Row labels in the panel.
+			("mode", _("Mode:")),
+			("buffer", _("Virtual buffer:")),
+			("nvdaKey", _("NVDA key:")),
+			("app", _("App:")),
+			("object", _("Focus:")),
+		):
+			titleCtrl = wx.StaticText(panel, label=title)
+			self.titles.append(titleCtrl)
+			grid.Add(titleCtrl)
+			text = wx.StaticText(panel, label="-")
+			grid.Add(text, flag=wx.EXPAND)
+			self.labels[key] = text
 
 		root = wx.BoxSizer(wx.VERTICAL)
-		# 注釈は一番上。表示の有無で全体がずれないよう、注釈がないときも領域を空けておく
+		root.Add(buttons, flag=wx.LEFT | wx.RIGHT | wx.TOP, border=8)
+		root.Add(checks, flag=wx.LEFT | wx.RIGHT | wx.TOP, border=8)
+		root.Add(divider, flag=wx.LEFT | wx.RIGHT | wx.TOP | wx.EXPAND, border=8)
+		# 注釈の有無で状態表示がずれないよう、注釈がないときも領域を空けておく
 		root.Add(self.note, flag=wx.LEFT | wx.RIGHT | wx.TOP, border=8)
 		root.Add(grid, flag=wx.ALL | wx.EXPAND, border=8)
-		root.Add(self.monitorCheck, flag=wx.LEFT | wx.RIGHT, border=8)
-		root.Add(self.topCheck, flag=wx.LEFT | wx.RIGHT | wx.TOP, border=8)
-		# ボタンの上に1行分の空き（フォント適用時に高さを合わせる）
-		self.buttonSpacer = root.AddSpacer(16)
-		root.Add(buttons, flag=wx.LEFT | wx.RIGHT | wx.BOTTOM, border=8)
 		self.rootSizer = root
 		panel.SetSizer(root)
 
@@ -385,8 +392,6 @@ class StatusPanel(wx.Frame):
 				self.toggleButton, self.refreshButton]:
 			ctrl.SetFont(font)
 		self.labels["mode"].SetFont(font.Bold().Larger())
-		# ボタン上の空きを「1行分」にする
-		self.buttonSpacer.SetMinSize((0, self.labels["app"].GetCharHeight()))
 		for button in (self.toggleButton, self.refreshButton):
 			self._fitButton(button)
 		self._rewrapAll()

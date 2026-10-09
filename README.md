@@ -12,9 +12,9 @@ When verifying web pages or apps with NVDA, it is often hard to tell why somethi
 - Shows the following, updated every 0.3 seconds:
   - Current mode (browse mode / focus mode)
   - Virtual buffer state (present or not, ready or loading, class name such as `Chromium`)
-  - Name, role and states of the focused object
-  - App name
   - Active NVDA modifier keys
+  - App name
+  - Name, role and states of the focused object
 - Key guides use the actual key names of your NVDA modifier key settings, including the NonConvert, Convert and Escape keys of the Japanese version of NVDA
 - "Toggle mode" and "Refresh virtual buffer" buttons that return focus to the previous app and run NVDA's own commands
 - While you operate the panel, it keeps showing the state of the previous app
@@ -123,7 +123,7 @@ Licensed under the GNU General Public License, version 2 or (at your option) any
 
 - All strings in the code are now in English, and Japanese is provided through translation files (`locale/ja`).
 - The labels of the "Toggle mode" and "Refresh virtual buffer" buttons now show the key in parentheses on a second line. This keeps the buttons from becoming too wide and makes them easier to click.
-- The area for the note at the top of the panel is now always reserved, even when no note is shown, so the layout no longer shifts when a note appears or disappears.
+- New panel layout. The buttons and the checkboxes (side by side) are now at the top, followed by a divider, the note and the status rows. The status rows are now in the order Mode, Virtual buffer, NVDA key, App and Focus, so that a long Focus value only extends downward. The area for the note is always reserved, even when no note is shown, so the layout does not shift when a note appears or disappears.
 
 #### Removed
 
@@ -147,9 +147,9 @@ NVDAでWebページやアプリを検証していると、読み上げられな�
 - 次の情報を0.3秒ごとに更新して表示
   - 現在のモード（ブラウズモード／フォーカスモード）
   - 仮想バッファの状態（有無、準備完了／読み込み中、`Chromium` などのクラス名）
-  - フォーカス中のオブジェクトの名前、ロール、状態
-  - アプリ名
   - 有効なNVDA制御キー
+  - アプリ名
+  - フォーカス中のオブジェクトの名前、ロール、状態
 - 操作ガイドを、実際のNVDA制御キーの設定に合わせたキー名で表示（日本語版独自の無変換・変換・Escapeにも対応）
 - 「モード切替」「仮想バッファ再読み込み」ボタン（直前のアプリにフォーカスを戻してから、NVDA本来のコマンドを実行）
 - パネルを操作している間は、直前のアプリの状態を表示し続ける
@@ -258,7 +258,7 @@ GNU General Public License バージョン2、またはそれ以降のバージ�
 
 - コード内の文字列を英語にし、日本語は翻訳ファイル（`locale/ja`）から表示するようにしました。
 - 「モード切替」「仮想バッファ再読み込み」ボタンのラベルを2行にし、括弧内のキー名を2行目に表示するようにしました。ボタンが横に長くなりすぎず、クリックしやすくなります。
-- パネル上部の注釈の領域を、注釈がないときも常に確保するようにしました。注釈の表示・非表示でレイアウトがずれなくなります。
+- パネルのレイアウトを変更しました。ボタンとチェックボックス（横並び）を上部に移し、その下に区切り線、注釈、状態表示を並べています。状態表示は「モード」「仮想バッファ」「NVDA制御キー」「アプリ」「フォーカス」の順にし、行数が変わりやすいフォーカスは最後に置いて、長くなっても下に伸びるだけにしました。注釈の領域は注釈がないときも確保しているので、注釈の表示・非表示でレイアウトがずれません。
 
 #### 削除
 
