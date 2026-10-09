@@ -275,9 +275,12 @@ class StatusPanel(wx.Frame):
 		self.rootSizer = root
 		panel.SetSizer(root)
 
+		# 初期の高さの計算に2行のボタンを含めるため、表示前にラベルを入れておく
+		self._updateButtonLabels()
 		self.applyFont()
 		self.SetMinSize((360, 220))
 		self._restoreGeometry()
+		self.fitHeightToContent()
 
 		self.Bind(wx.EVT_CLOSE, self.onClose)
 		self.Bind(wx.EVT_SIZE, self.onSize)
@@ -431,6 +434,14 @@ class StatusPanel(wx.Frame):
 		if button.GetLabel() != text:
 			button.SetLabel(text)
 			self._fitButton(button)
+			# ボタンが大きくなった分、パネルの高さが足りなくなることがある
+			wx.CallAfter(self.fitHeightToContent)
+
+	def _updateButtonLabels(self):
+		# Translators: Button label shown in two lines. {key} is the actual key, e.g. NonConvert+Space.
+		self._setButton(self.toggleButton, _("Toggle mode\n({key})").format(key=keyLabel("Space")))
+		# Translators: Button label shown in two lines. {key} is the actual key, e.g. NonConvert+F5.
+		self._setButton(self.refreshButton, _("Refresh virtual buffer\n({key})").format(key=keyLabel("F5")))
 
 	def updateView(self, info, usingLast):
 		"""状態表示を更新する。"""
@@ -441,10 +452,7 @@ class StatusPanel(wx.Frame):
 			# Translators: Note shown while the panel itself has focus.
 			_("Note: Showing the state of the previous app because the panel is in use.") if usingLast else ""
 		)
-		# Translators: Button label shown in two lines. {key} is the actual key, e.g. NonConvert+Space.
-		self._setButton(self.toggleButton, _("Toggle mode\n({key})").format(key=keyLabel("Space")))
-		# Translators: Button label shown in two lines. {key} is the actual key, e.g. NonConvert+F5.
-		self._setButton(self.refreshButton, _("Refresh virtual buffer\n({key})").format(key=keyLabel("F5")))
+		self._updateButtonLabels()
 		# 折り返しで行数が変わる場合もあるので再配置
 		self.panel.Layout()
 
