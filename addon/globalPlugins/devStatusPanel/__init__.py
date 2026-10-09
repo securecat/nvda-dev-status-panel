@@ -45,6 +45,8 @@ DEFAULT_SETTINGS = {
 
 # パネルのフォントサイズ（pt）
 FONT_SIZE = 10
+# ボタンの高さ（文字の高さに対する倍率。2行のラベルと上下の余白が収まる高さ）
+BUTTON_HEIGHT_RATIO = 2.5
 # 使用するsans-serif系フォントの候補（上から順に、インストールされているものを使う）
 SANS_SERIF_CANDIDATES = ("Meiryo", "メイリオ")
 
@@ -210,6 +212,27 @@ def inUseNote():
 	# Translators: Note shown while the panel itself has focus.
 	return _("Note: Showing the state of the previous app because the panel is in use.")
 
+
+def pausedNote():
+	# Translators: Note shown while monitoring is paused.
+	return _("Note: Monitoring is paused. Enable monitoring to resume.")
+
+
+def wrapText(dc, text, width):
+	"""StaticText.Wrap() と同じく、空白の位置でだけ幅に合わせて折り返した文字列を返す。"""
+	lines = []
+	for paragraph in text.split("\n"):
+		line = ""
+		for word in paragraph.split(" "):
+			candidate = word if not line else line + " " + word
+			if line and dc.GetTextExtent(candidate)[0] > width:
+				lines.append(line)
+				line = word
+			else:
+				line = candidate
+		lines.append(line)
+	return "\n".join(lines)
+
 _BASE_STYLE = wx.CAPTION | wx.CLOSE_BOX | wx.RESIZE_BORDER | wx.FRAME_TOOL_WINDOW
 
 
@@ -245,7 +268,6 @@ class StatusPanel(wx.Frame):
 
 		self.note = wx.StaticText(panel, label="")
 		self.note.SetForegroundColour(wx.Colour(200, 0, 0))
-		self.note.Hide()
 		# Translators: Checkbox label.
 		self.monitorCheck = wx.CheckBox(panel, label=_("Enable monitoring"))
 		self.monitorCheck.SetValue(self.settings["monitoring"])
@@ -265,7 +287,7 @@ class StatusPanel(wx.Frame):
 		buttons.Add(self.refreshButton)
 
 		root = wx.BoxSizer(wx.VERTICAL)
-		# 注釈は一番上（表示するときだけ領域を取る）
+		# 注釈は一番上。表示の有無で全体がずれないよう、注釈がないときも領域を空けておく
 		root.Add(self.note, flag=wx.LEFT | wx.RIGHT | wx.TOP, border=8)
 		root.Add(grid, flag=wx.ALL | wx.EXPAND, border=8)
 		root.Add(self.monitorCheck, flag=wx.LEFT | wx.RIGHT, border=8)
@@ -276,7 +298,7 @@ class StatusPanel(wx.Frame):
 		self.rootSizer = root
 		panel.SetSizer(root)
 
-		# 初期の高さの計算に2行のボタンを含めるため、表示前にラベルを入れておく
+		# ボタンの幅を最初から決めておくため、表示前にラベルを入れておく
 		self._updateButtonLabels()
 		self.applyFont()
 		self.SetMinSize((360, 220))
@@ -290,31 +312,27 @@ class StatusPanel(wx.Frame):
 	# --- サイズと位置の記憶 -----------------------------------------------
 
 	def fitHeightToContent(self):
-		"""高さが内容より足りなければ、内容がすべて見える高さまで広げる。
-
-		注釈が非表示のときも、パネル操作中に注釈が出る分の高さを確保しておく。
-		"""
+		"""高さが内容より足りなければ、内容がすべて見える高さまで広げる。"""
 		if not self:
 			return
 		# 表示前でも、パネルの幅（折り返し幅の計算に使う）をウィンドウに合わせておく
 		self.Layout()
+		self._reserveNoteArea()
 		self.panel.Layout()
 		needed = self.rootSizer.GetMinSize().height
-		if not self.note.IsShown():
-			needed += self._noteHeight()
 		width, height = self.GetClientSize()
 		if height < needed:
 			self.SetClientSize((width, needed))
 
-	def _noteHeight(self):
-		"""パネル操作中の注釈を、今の幅で折り返して表示したときの高さ（上の余白を含む）。"""
-		# 非表示の注釈に一時的に文言を入れて測り、元に戻す
-		self.note.SetLabel(inUseNote())
-		self.note.Wrap(self._wrapWidth(self.note))
-		height = self.note.GetBestSize().height
-		self.note.SetLabel(self._raw.get(self.note, ""))
-		self.note.Wrap(self._wrapWidth(self.note))
-		return height + 8
+	def _reserveNoteArea(self):
+		"""注釈の領域を、どの注釈を今の幅で折り返して表示しても収まる高さで確保する。"""
+		dc = wx.ClientDC(self.note)
+		dc.SetFont(self.note.GetFont())
+		width = self._wrapWidth(self.note)
+		height = dc.GetCharHeight()
+		for text in (inUseNote(), pausedNote()):
+			height = max(height, dc.GetMultiLineTextExtent(wrapText(dc, text, width))[1])
+		self.note.SetMinSize((-1, height))
 
 	def _restoreGeometry(self):
 		s = self.settings
@@ -412,6 +430,8 @@ class StatusPanel(wx.Frame):
 		for ctrl, text in self._raw.items():
 			ctrl.SetLabel(text)
 			ctrl.Wrap(self._wrapWidth(ctrl))
+		# 幅が変わると注釈の折り返し行数も変わるので、確保する高さを計算し直す
+		self._reserveNoteArea()
 		self.panel.Layout()
 
 	def _set(self, ctrl, text):
@@ -423,23 +443,20 @@ class StatusPanel(wx.Frame):
 		ctrl.Wrap(self._wrapWidth(ctrl))
 
 	def _setNote(self, text):
+		# 注釈の領域は常に確保してあるので、文言を入れ替えるだけ
 		self._set(self.note, text)
-		if self.note.IsShown() != bool(text):
-			self.note.Show(bool(text))
 
 	def _fitButton(self, button):
-		"""ボタンをラベルが収まる幅まで広げる。"""
+		"""ボタンの幅をラベルが収まるまで広げる。高さは文字の高さの2.5倍で固定する。"""
 		button.InvalidateBestSize()
 		button.SetMinSize(wx.DefaultSize)
 		best = button.GetBestSize()
-		button.SetMinSize((best.width + 24, best.height + 4))
+		button.SetMinSize((best.width + 24, int(button.GetCharHeight() * BUTTON_HEIGHT_RATIO)))
 
 	def _setButton(self, button, text):
 		if button.GetLabel() != text:
 			button.SetLabel(text)
 			self._fitButton(button)
-			# ボタンが大きくなった分、パネルの高さが足りなくなることがある
-			wx.CallAfter(self.fitHeightToContent)
 
 	def _updateButtonLabels(self):
 		# Translators: Button label shown in two lines. {key} is the actual key, e.g. NonConvert+Space.
@@ -461,8 +478,7 @@ class StatusPanel(wx.Frame):
 		for key in ("mode", "buffer", "object", "app"):
 			# Translators: Shown in each row while monitoring is paused.
 			self._set(self.labels[key], _("(paused)"))
-		# Translators: Note shown while monitoring is paused.
-		self._setNote(_("Note: Monitoring is paused. Enable monitoring to resume."))
+		self._setNote(pausedNote())
 		self.panel.Layout()
 
 

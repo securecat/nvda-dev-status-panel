@@ -40,6 +40,7 @@ When verifying web pages or apps with NVDA, it is often hard to tell why somethi
 - To show or hide the panel, press **NVDA modifier key+Ctrl+Shift+D** (NonConvert+Ctrl+Shift+D or Insert+Ctrl+Shift+D by default in the Japanese version of NVDA). You can also use **NVDA menu > Tools > Developer Status Panel**.
 - Closing the panel with the × button only hides it. Show it again with the shortcut or the menu.
 - The shortcut can be changed in NVDA's Input Gestures dialog, under the "Developer Status Panel" category.
+- The panel size, position and other settings are saved in a settings file, `devStatusPanel.json`, created in NVDA's user configuration folder (`%APPDATA%\nvda` for installed NVDA). See [Settings file](#settings-file) for details.
 
 ## Settings file
 
@@ -122,7 +123,7 @@ Licensed under the GNU General Public License, version 2 or (at your option) any
 
 - All strings in the code are now in English, and Japanese is provided through translation files (`locale/ja`).
 - The labels of the "Toggle mode" and "Refresh virtual buffer" buttons now show the key in parentheses on a second line. This keeps the buttons from becoming too wide and makes them easier to click.
-- The initial height of the panel now also includes room for the note shown while the panel is in use.
+- The area for the note at the top of the panel is now always reserved, even when no note is shown, so the layout no longer shifts when a note appears or disappears.
 
 #### Removed
 
@@ -174,6 +175,7 @@ NVDAでWebページやアプリを検証していると、読み上げられな�
 - パネルの表示／非表示は **NVDA制御キー+Ctrl+Shift+D** で切り替えられます（日本語版NVDAの既定では 無変換+Ctrl+Shift+D または Insert+Ctrl+Shift+D）。**NVDAメニュー ＞ ツール ＞ 開発者ステータスパネル** からも切り替えられます。
 - ×ボタンでパネルを閉じた場合は非表示になるだけです。ショートカットかメニューから再表示できます。
 - ショートカットは、NVDAの「入力ジェスチャー」ダイアログの「開発者ステータスパネル」カテゴリで変更できます。
+- パネルのサイズや位置などの設定は、NVDAのユーザー設定フォルダ（インストール版のNVDAでは `%APPDATA%\nvda`）に作られる設定ファイル `devStatusPanel.json` に保存されます。詳しくは[設定ファイル](#設定ファイル)を参照してください。
 
 ## 設定ファイル
 
@@ -256,7 +258,7 @@ GNU General Public License バージョン2、またはそれ以降のバージ�
 
 - コード内の文字列を英語にし、日本語は翻訳ファイル（`locale/ja`）から表示するようにしました。
 - 「モード切替」「仮想バッファ再読み込み」ボタンのラベルを2行にし、括弧内のキー名を2行目に表示するようにしました。ボタンが横に長くなりすぎず、クリックしやすくなります。
-- パネルの初期の高さに、パネル操作中に表示される注釈の分も含めるようにしました。
+- パネル上部の注釈の領域を、注釈がないときも常に確保するようにしました。注釈の表示・非表示でレイアウトがずれなくなります。
 
 #### 削除
 
