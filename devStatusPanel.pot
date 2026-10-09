@@ -1,0 +1,198 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the devStatusPanel package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: devStatusPanel 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-09 09:25+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Translators: Name of the IME NonConvert key (無変換) used as an NVDA modifier key.
+#: addon/globalPlugins/devStatusPanel/__init__.py:105
+msgid "NonConvert"
+msgstr ""
+
+#. Translators: Name of the IME Convert key (変換) used as an NVDA modifier key.
+#: addon/globalPlugins/devStatusPanel/__init__.py:108
+msgid "Convert"
+msgstr ""
+
+#. Translators: Name of the Escape key used as an NVDA modifier key.
+#: addon/globalPlugins/devStatusPanel/__init__.py:111
+msgid "Escape"
+msgstr ""
+
+#. Translators: Name of the Insert key used as an NVDA modifier key.
+#: addon/globalPlugins/devStatusPanel/__init__.py:115
+msgid "Insert"
+msgstr ""
+
+#. Translators: Name of the numpad Insert key used as an NVDA modifier key.
+#: addon/globalPlugins/devStatusPanel/__init__.py:118
+msgid "Numpad Insert"
+msgstr ""
+
+#. Translators: Name of the CapsLock key used as an NVDA modifier key.
+#: addon/globalPlugins/devStatusPanel/__init__.py:121
+msgid "CapsLock"
+msgstr ""
+
+#. Translators: Mode shown when the focused object has no tree interceptor.
+#: addon/globalPlugins/devStatusPanel/__init__.py:156
+msgid "Normal (browse mode not applicable)"
+msgstr ""
+
+#. Translators: Virtual buffer status shown when there is no virtual buffer.
+#: addon/globalPlugins/devStatusPanel/__init__.py:158
+msgid "None"
+msgstr ""
+
+#. Translators: Name of NVDA's focus mode / browse mode.
+#: addon/globalPlugins/devStatusPanel/__init__.py:161
+msgid "Focus mode"
+msgstr ""
+
+#: addon/globalPlugins/devStatusPanel/__init__.py:161
+msgid "Browse mode"
+msgstr ""
+
+#. Translators: Virtual buffer load state (ready / still loading).
+#: addon/globalPlugins/devStatusPanel/__init__.py:164
+msgid "ready"
+msgstr ""
+
+#: addon/globalPlugins/devStatusPanel/__init__.py:164
+msgid "loading…"
+msgstr ""
+
+#. Translators: Virtual buffer load state when it cannot be determined.
+#: addon/globalPlugins/devStatusPanel/__init__.py:167
+msgid "unknown"
+msgstr ""
+
+#. Translators: Virtual buffer status. {state} is the load state, {cls} is the class name (e.g. Chromium).
+#: addon/globalPlugins/devStatusPanel/__init__.py:169
+#, python-brace-format
+msgid "Present ({state} / {cls})"
+msgstr ""
+
+#. Translators: Mode shown when the tree interceptor does not support browse mode.
+#: addon/globalPlugins/devStatusPanel/__init__.py:172
+msgid "TreeInterceptor without browse mode support"
+msgstr ""
+
+#. Translators: Virtual buffer status. {cls} is the class name of the tree interceptor.
+#: addon/globalPlugins/devStatusPanel/__init__.py:174
+#, python-brace-format
+msgid "Present ({cls})"
+msgstr ""
+
+#. Translators: Shown when the focused object has no name.
+#: addon/globalPlugins/devStatusPanel/__init__.py:178
+msgid "(no name)"
+msgstr ""
+
+#. Translators: Focused object info. {name}, {role} and {states} come from NVDA.
+#: addon/globalPlugins/devStatusPanel/__init__.py:183
+#, python-brace-format
+msgid "{name} / {role} ({states})"
+msgstr ""
+
+#. Translators: Focused object info without states.
+#: addon/globalPlugins/devStatusPanel/__init__.py:186
+#, python-brace-format
+msgid "{name} / {role}"
+msgstr ""
+
+#: addon/globalPlugins/devStatusPanel/__init__.py:209
+msgid "NVDA Developer Status Panel"
+msgstr ""
+
+#. Translators: Row labels in the panel.
+#: addon/globalPlugins/devStatusPanel/__init__.py:221
+msgid "Mode:"
+msgstr ""
+
+#: addon/globalPlugins/devStatusPanel/__init__.py:222
+msgid "Virtual buffer:"
+msgstr ""
+
+#: addon/globalPlugins/devStatusPanel/__init__.py:223
+msgid "Focus:"
+msgstr ""
+
+#: addon/globalPlugins/devStatusPanel/__init__.py:224
+msgid "App:"
+msgstr ""
+
+#: addon/globalPlugins/devStatusPanel/__init__.py:225
+msgid "NVDA key:"
+msgstr ""
+
+#. Translators: Checkbox label.
+#: addon/globalPlugins/devStatusPanel/__init__.py:238
+msgid "Enable monitoring"
+msgstr ""
+
+#. Translators: Checkbox label.
+#: addon/globalPlugins/devStatusPanel/__init__.py:242
+msgid "Keep this panel on top"
+msgstr ""
+
+#. Translators: Button label.
+#: addon/globalPlugins/devStatusPanel/__init__.py:249
+msgid "Font…"
+msgstr ""
+
+#. Translators: Note shown while the panel itself has focus.
+#: addon/globalPlugins/devStatusPanel/__init__.py:435
+msgid ""
+"Note: Showing the state of the previous app because the panel is in use."
+msgstr ""
+
+#. Translators: Button label. {key} is the actual key, e.g. NonConvert+Space.
+#: addon/globalPlugins/devStatusPanel/__init__.py:438
+#, python-brace-format
+msgid "Toggle mode ({key})"
+msgstr ""
+
+#. Translators: Button label. {key} is the actual key, e.g. NonConvert+F5.
+#: addon/globalPlugins/devStatusPanel/__init__.py:440
+#, python-brace-format
+msgid "Refresh virtual buffer ({key})"
+msgstr ""
+
+#. Translators: Shown in each row while monitoring is paused.
+#: addon/globalPlugins/devStatusPanel/__init__.py:447
+msgid "(paused)"
+msgstr ""
+
+#. Translators: Note shown while monitoring is paused.
+#: addon/globalPlugins/devStatusPanel/__init__.py:449
+msgid "Note: Monitoring is paused. Enable monitoring to resume."
+msgstr ""
+
+#. Translators: Category name in the Input Gestures dialog.
+#: addon/globalPlugins/devStatusPanel/__init__.py:455
+msgid "Developer Status Panel"
+msgstr ""
+
+#. Translators: Item in the NVDA Tools menu.
+#: addon/globalPlugins/devStatusPanel/__init__.py:466
+msgid "&Developer Status Panel"
+msgstr ""
+
+#. Translators: Description of the script shown in the Input Gestures dialog.
+#: addon/globalPlugins/devStatusPanel/__init__.py:551
+msgid "Shows or hides the Developer Status Panel"
+msgstr ""
