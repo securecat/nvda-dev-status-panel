@@ -260,7 +260,8 @@ class StatusPanel(wx.Frame):
 		buttons = wx.BoxSizer(wx.HORIZONTAL)
 		buttons.Add(self.toggleButton, flag=wx.RIGHT, border=6)
 		buttons.Add(self.refreshButton, flag=wx.RIGHT, border=6)
-		buttons.Add(self.fontButton)
+		# 2行のボタンと高さをそろえる
+		buttons.Add(self.fontButton, flag=wx.EXPAND)
 
 		root = wx.BoxSizer(wx.VERTICAL)
 		# 注釈は一番上（表示するときだけ領域を取る）
@@ -440,10 +441,10 @@ class StatusPanel(wx.Frame):
 			# Translators: Note shown while the panel itself has focus.
 			_("Note: Showing the state of the previous app because the panel is in use.") if usingLast else ""
 		)
-		# Translators: Button label. {key} is the actual key, e.g. NonConvert+Space.
-		self._setButton(self.toggleButton, _("Toggle mode ({key})").format(key=keyLabel("Space")))
-		# Translators: Button label. {key} is the actual key, e.g. NonConvert+F5.
-		self._setButton(self.refreshButton, _("Refresh virtual buffer ({key})").format(key=keyLabel("F5")))
+		# Translators: Button label shown in two lines. {key} is the actual key, e.g. NonConvert+Space.
+		self._setButton(self.toggleButton, _("Toggle mode\n({key})").format(key=keyLabel("Space")))
+		# Translators: Button label shown in two lines. {key} is the actual key, e.g. NonConvert+F5.
+		self._setButton(self.refreshButton, _("Refresh virtual buffer\n({key})").format(key=keyLabel("F5")))
 		# 折り返しで行数が変わる場合もあるので再配置
 		self.panel.Layout()
 

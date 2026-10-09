@@ -121,7 +121,8 @@ Licensed under the GNU General Public License, version 2 or (at your option) any
 
 #### Changed
 
-- All strings in the code are now in English, and Japanese is provided through translation files (`locale/ja`). The Japanese UI is unchanged from v0.4.1.
+- All strings in the code are now in English, and Japanese is provided through translation files (`locale/ja`). Apart from the button labels below, the Japanese UI is unchanged from v0.4.1.
+- The labels of the "Toggle mode" and "Refresh virtual buffer" buttons now show the key in parentheses on a second line. This keeps the buttons from becoming too wide and makes them easier to click.
 
 See [CHANGELOG.md](CHANGELOG.md) for full history.
 
@@ -250,7 +251,8 @@ GNU General Public License バージョン2、またはそれ以降のバージ�
 
 #### 変更
 
-- コード内の文字列を英語にし、日本語は翻訳ファイル（`locale/ja`）から表示するようにしました。日本語表示の内容はv0.4.1から変わりません。
+- コード内の文字列を英語にし、日本語は翻訳ファイル（`locale/ja`）から表示するようにしました。次のボタンのラベルを除き、日本語表示の内容はv0.4.1から変わりません。
+- 「モード切替」「仮想バッファ再読み込み」ボタンのラベルを2行にし、括弧内のキー名を2行目に表示するようにしました。ボタンが横に長くなりすぎず、クリックしやすくなります。
 
 全履歴は [CHANGELOG.md](CHANGELOG.md) を参照。
 

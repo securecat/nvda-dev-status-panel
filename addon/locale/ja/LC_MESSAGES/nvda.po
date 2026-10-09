@@ -155,15 +155,25 @@ msgid ""
 "Note: Showing the state of the previous app because the panel is in use."
 msgstr "※パネル操作中のため、直前のアプリの状態を表示しています。"
 
-#. Translators: Button label. {key} is the actual key, e.g. NonConvert+Space.
+#. Translators: Button label shown in two lines. {key} is the actual key, e.g.
+#. NonConvert+Space.
 #: addon/globalPlugins/devStatusPanel/__init__.py:438
-msgid "Toggle mode ({key})"
-msgstr "モード切替 ({key})"
+msgid ""
+"Toggle mode\n"
+"({key})"
+msgstr ""
+"モード切替\n"
+"({key})"
 
-#. Translators: Button label. {key} is the actual key, e.g. NonConvert+F5.
+#. Translators: Button label shown in two lines. {key} is the actual key, e.g.
+#. NonConvert+F5.
 #: addon/globalPlugins/devStatusPanel/__init__.py:440
-msgid "Refresh virtual buffer ({key})"
-msgstr "仮想バッファ再読み込み ({key})"
+msgid ""
+"Refresh virtual buffer\n"
+"({key})"
+msgstr ""
+"仮想バッファ再読み込み\n"
+"({key})"
 
 #. Translators: Shown in each row while monitoring is paused.
 #: addon/globalPlugins/devStatusPanel/__init__.py:447

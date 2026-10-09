@@ -160,16 +160,22 @@ msgid ""
 "Note: Showing the state of the previous app because the panel is in use."
 msgstr ""
 
-#. Translators: Button label. {key} is the actual key, e.g. NonConvert+Space.
+#. Translators: Button label shown in two lines. {key} is the actual key, e.g.
+#. NonConvert+Space.
 #: addon/globalPlugins/devStatusPanel/__init__.py:438
 #, python-brace-format
-msgid "Toggle mode ({key})"
+msgid ""
+"Toggle mode\n"
+"({key})"
 msgstr ""
 
-#. Translators: Button label. {key} is the actual key, e.g. NonConvert+F5.
+#. Translators: Button label shown in two lines. {key} is the actual key, e.g.
+#. NonConvert+F5.
 #: addon/globalPlugins/devStatusPanel/__init__.py:440
 #, python-brace-format
-msgid "Refresh virtual buffer ({key})"
+msgid ""
+"Refresh virtual buffer\n"
+"({key})"
 msgstr ""
 
 #. Translators: Shown in each row while monitoring is paused.
