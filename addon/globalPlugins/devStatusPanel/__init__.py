@@ -38,7 +38,7 @@ DEFAULT_SETTINGS = {
 	"x": None,
 	"y": None,
 	"width": 560,
-	"height": None,  # None なら内容に合わせた高さで開く
+	"height": 345,
 	"alwaysOnTop": True,
 	"monitoring": True,
 }
@@ -233,7 +233,15 @@ def wrapText(dc, text, width):
 		lines.append(line)
 	return "\n".join(lines)
 
-_BASE_STYLE = wx.CAPTION | wx.CLOSE_BOX | wx.RESIZE_BORDER | wx.FRAME_TOOL_WINDOW
+
+# SetWindowPos の引数（最前面表示の切り替えに使う）
+_HWND_TOPMOST = -1
+_HWND_NOTOPMOST = -2
+_SWP_NOSIZE = 0x0001
+_SWP_NOMOVE = 0x0002
+_SWP_NOACTIVATE = 0x0010
+
+_BASE_STYLE =wx.CAPTION | wx.CLOSE_BOX | wx.RESIZE_BORDER | wx.FRAME_TOOL_WINDOW
 
 
 class StatusPanel(wx.Frame):
@@ -310,26 +318,15 @@ class StatusPanel(wx.Frame):
 		self.applyFont()
 		self.SetMinSize((360, 220))
 		self._restoreGeometry()
-		self.fitHeightToContent()
+		# 表示前でも、パネルの幅をウィンドウに合わせてから折り返し位置を決める
+		self.Layout()
+		self._rewrapAll()
 
 		self.Bind(wx.EVT_CLOSE, self.onClose)
 		self.Bind(wx.EVT_SIZE, self.onSize)
 		self.Bind(wx.EVT_MOVE, self.onMove)
 
 	# --- サイズと位置の記憶 -----------------------------------------------
-
-	def fitHeightToContent(self):
-		"""高さが内容より足りなければ、内容がすべて見える高さまで広げる。"""
-		if not self:
-			return
-		# 表示前でも、パネルの幅（折り返し幅の計算に使う）をウィンドウに合わせておく
-		self.Layout()
-		self._reserveNoteArea()
-		self.panel.Layout()
-		needed = self.rootSizer.GetMinSize().height
-		width, height = self.GetClientSize()
-		if height < needed:
-			self.SetClientSize((width, needed))
 
 	def _reserveNoteArea(self):
 		"""注釈の領域を、どの注釈を今の幅で折り返して表示しても収まる高さで確保する。"""
@@ -343,12 +340,11 @@ class StatusPanel(wx.Frame):
 
 	def _restoreGeometry(self):
 		s = self.settings
-		width = max(int(s["width"]), 360)
-		if s["height"] is None:
-			self.SetSize((width, 220))
-			self.SetClientSize((self.GetClientSize().width, self.rootSizer.GetMinSize().height))
-		else:
-			self.SetSize((width, max(int(s["height"]), 220)))
+		# 設定ファイルがなければ既定のサイズ（DEFAULT_SETTINGS）で開く
+		# （v0.4.1 までは高さ未保存を null で書いていたので、その場合も既定値にする）
+		width = s["width"] or DEFAULT_SETTINGS["width"]
+		height = s["height"] or DEFAULT_SETTINGS["height"]
+		self.SetSize((max(int(width), 360), max(int(height), 220)))
 		if s["x"] is not None and s["y"] is not None:
 			x, y = int(s["x"]), int(s["y"])
 			# モニター構成が変わって画面外になっていたら位置は復元しない
@@ -408,8 +404,14 @@ class StatusPanel(wx.Frame):
 		onTop = self.topCheck.GetValue()
 		self.settings["alwaysOnTop"] = onTop
 		saveSettings(self.settings)
-		style = self.GetWindowStyleFlag()
-		self.SetWindowStyleFlag(style | wx.STAY_ON_TOP if onTop else style & ~wx.STAY_ON_TOP)
+		# SetWindowStyleFlag() で切り替えると、オンにしたときにチェックボックスからフォーカスが外れるため、
+		# アクティブ化しない指定で SetWindowPos を直接呼ぶ
+		ctypes.windll.user32.SetWindowPos(
+			ctypes.c_void_p(self.GetHandle()),
+			ctypes.c_void_p(_HWND_TOPMOST if onTop else _HWND_NOTOPMOST),
+			0, 0, 0, 0,
+			_SWP_NOMOVE | _SWP_NOSIZE | _SWP_NOACTIVATE,
+		)
 
 	# --- 表示 -------------------------------------------------------------
 
@@ -506,8 +508,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.setMonitoring(self.settings["monitoring"])
 		# 常時表示：起動時にフォーカスを奪わずに表示
 		self.panel.ShowWithoutActivating()
-		# 最初の表示内容が入った後で、ボタンまで見える高さになっているか確認する
-		wx.CallLater(500, self.panel.fitHeightToContent)
 
 	def terminate(self):
 		try:
