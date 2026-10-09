@@ -204,7 +204,7 @@ nvda-dev-status-panel/
 │           └─ nvda.mo             コンパイル済みの翻訳（build.py で生成）
 ├─ build.py                        ビルドスクリプト
 ├─ devStatusPanel.pot              翻訳テンプレート
-├─ CHANGELOG.md                    変更履歴
+├─ CHANGELOG.md                    更新履歴
 └─ README.md                       このファイル
 ```
 
@@ -243,7 +243,7 @@ Copyright (C) 2026 securecat
 
 GNU General Public License バージョン2、またはそれ以降のバージョン（GPL-2.0-or-later）で公開しています。NVDAと同じGPL系のライセンスです。[LICENSE](LICENSE) を参照してください。
 
-## 変更履歴
+## 更新履歴
 
 ### [1.0.0] - 2026-10-10
 
