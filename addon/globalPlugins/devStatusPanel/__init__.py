@@ -59,9 +59,7 @@ def loadSettings():
 	settings = dict(DEFAULT_SETTINGS)
 	try:
 		with open(_settingsPath(), encoding="utf-8") as f:
-			loaded = json.load(f)
-		# 廃止した項目（v0.3.0〜v0.4.1 の fontFace・fontSize など）は読み捨てる
-		settings.update({k: v for k, v in loaded.items() if k in DEFAULT_SETTINGS})
+			settings.update(json.load(f))
 	except FileNotFoundError:
 		pass
 	except Exception:
@@ -334,10 +332,7 @@ class StatusPanel(wx.Frame):
 	def _restoreGeometry(self):
 		s = self.settings
 		# 設定ファイルがなければ既定のサイズ（DEFAULT_SETTINGS）で開く
-		# （v0.4.1 までは高さ未保存を null で書いていたので、その場合も既定値にする）
-		width = s["width"] or DEFAULT_SETTINGS["width"]
-		height = s["height"] or DEFAULT_SETTINGS["height"]
-		self.SetSize((max(int(width), 360), max(int(height), 220)))
+		self.SetSize((max(int(s["width"]), 360), max(int(s["height"]), 220)))
 		if s["x"] is not None and s["y"] is not None:
 			x, y = int(s["x"]), int(s["y"])
 			# モニター構成が変わって画面外になっていたら位置は復元しない
