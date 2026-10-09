@@ -1,0 +1,11 @@
+# Build output
+dist/
+*.nvda-addon
+
+# Python
+__pycache__/
+*.py[co]
+
+# Editor / local
+*.code-workspace
+work/
