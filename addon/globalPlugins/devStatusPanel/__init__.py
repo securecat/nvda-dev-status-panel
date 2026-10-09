@@ -234,14 +234,7 @@ def wrapText(dc, text, width):
 	return "\n".join(lines)
 
 
-# SetWindowPos の引数（最前面表示の切り替えに使う）
-_HWND_TOPMOST = -1
-_HWND_NOTOPMOST = -2
-_SWP_NOSIZE = 0x0001
-_SWP_NOMOVE = 0x0002
-_SWP_NOACTIVATE = 0x0010
-
-_BASE_STYLE =wx.CAPTION | wx.CLOSE_BOX | wx.RESIZE_BORDER | wx.FRAME_TOOL_WINDOW
+_BASE_STYLE = wx.CAPTION | wx.CLOSE_BOX | wx.RESIZE_BORDER | wx.FRAME_TOOL_WINDOW
 
 
 class StatusPanel(wx.Frame):
@@ -404,14 +397,8 @@ class StatusPanel(wx.Frame):
 		onTop = self.topCheck.GetValue()
 		self.settings["alwaysOnTop"] = onTop
 		saveSettings(self.settings)
-		# SetWindowStyleFlag() で切り替えると、オンにしたときにチェックボックスからフォーカスが外れるため、
-		# アクティブ化しない指定で SetWindowPos を直接呼ぶ
-		ctypes.windll.user32.SetWindowPos(
-			ctypes.c_void_p(self.GetHandle()),
-			ctypes.c_void_p(_HWND_TOPMOST if onTop else _HWND_NOTOPMOST),
-			0, 0, 0, 0,
-			_SWP_NOMOVE | _SWP_NOSIZE | _SWP_NOACTIVATE,
-		)
+		style = self.GetWindowStyleFlag()
+		self.SetWindowStyleFlag(style | wx.STAY_ON_TOP if onTop else style & ~wx.STAY_ON_TOP)
 
 	# --- 表示 -------------------------------------------------------------
 

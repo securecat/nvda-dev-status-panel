@@ -23,10 +23,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - The "Font…" button. The panel now always uses Meiryo 10 pt (or the system's sans-serif font if Meiryo is not available). Font settings saved by earlier versions are ignored.
 
-### Fixed
-
-- Turning on "Keep this panel on top" moved the focus away from the checkbox.
-
 ## [0.4.1] - 2026-10-09
 
 ### Fixed
@@ -113,10 +109,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### 削除
 
 - 「フォント…」ボタンを削除しました。パネルのフォントは常にメイリオ 10pt（メイリオがない場合はシステムのsans-serif系フォント）になります。以前のバージョンで保存したフォント設定は使用しません。
-
-### 修正
-
-- 「このパネルを最前面に表示」をオンにすると、チェックボックスからフォーカスが外れてしまう問題を修正しました。
 
 ## [0.4.1] - 2026-10-09
 
