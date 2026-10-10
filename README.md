@@ -109,26 +109,11 @@ Licensed under the GNU General Public License, version 2 or (at your option) any
 
 ## Changelog
 
-### [1.0.0] - 2026-10-10
-
-#### Added
-
-- First stable release.
-- English and Japanese user interface. The language follows NVDA's language setting automatically.
-- In English, NVDA modifier key names are also shown in English (e.g. NonConvert+Space).
-- English and Japanese versions of the add-on name and description shown in the Add-on Store and elsewhere.
-- Translation template (`devStatusPanel.pot`).
+### [1.0.1] - 2026-10-10
 
 #### Changed
 
-- All strings in the code are now in English, and Japanese is provided through translation files (`locale/ja`).
-- The labels of the "Toggle mode" and "Refresh virtual buffer" buttons now show the key in parentheses on a second line.
-- New panel layout. The buttons and the checkboxes (side by side) are now at the top, followed by a divider, the note and the status rows. The status rows are now in the order Mode, Virtual buffer, NVDA key, App and Focus.
-- When there is no settings file, the panel now opens at a size of 560 × 345 pixels. When there is one, the saved size is used as is, and the panel is no longer enlarged automatically to fit its contents.
-
-#### Removed
-
-- The "Font…" button. The panel now always uses Meiryo 10 pt (or the system's sans-serif font if Meiryo is not available).
+- The last tested NVDA version is now 2026.2.
 
 See [CHANGELOG.md](CHANGELOG.md) for full history.
 
@@ -245,26 +230,11 @@ GNU General Public License バージョン2、またはそれ以降のバージ�
 
 ## 更新履歴
 
-### [1.0.0] - 2026-10-10
-
-#### 追加
-
-- 正式リリース。
-- 日本語と英語の両方に対応しました。表示言語はNVDAの言語設定に従って自動で切り替わります。
-- 英語表示では、NVDA制御キーの名前も英語で表示します（例：NonConvert+Space）。
-- アドオンストアなどに表示されるアドオンの名前と説明も、日本語版と英語版を用意しました。
-- 翻訳テンプレート（`devStatusPanel.pot`）を追加しました。
+### [1.0.1] - 2026-10-10
 
 #### 変更
 
-- コード内の文字列を英語にし、日本語は翻訳ファイル（`locale/ja`）から表示するようにしました。
-- 「モード切替」「仮想バッファ再読み込み」ボタンのラベルを2行にし、括弧内のキー名を2行目に表示するようにしました。
-- パネルのレイアウトを変更しました。ボタンとチェックボックス（横並び）を上部に移し、その下に区切り線、注釈、状態表示を並べています。状態表示は「モード」「仮想バッファ」「NVDA制御キー」「アプリ」「フォーカス」の順にしました。
-- 設定ファイルがないときは、パネルを幅560×高さ345ピクセルで開くようにしました。設定ファイルがあるときは保存したサイズをそのまま使い、内容に合わせて自動で広げることはしません。
-
-#### 削除
-
-- 「フォント…」ボタンを削除しました。パネルのフォントは常にメイリオ 10pt（メイリオがない場合はシステムのsans-serif系フォント）になります。
+- 動作確認済みのNVDAバージョンを2026.2にしました。
 
 全履歴は [CHANGELOG.md](CHANGELOG.md) を参照。
 

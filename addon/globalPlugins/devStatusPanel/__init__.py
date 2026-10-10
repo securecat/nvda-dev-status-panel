@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Developer Status Panel (devStatusPanel) v1.0.0
+# Developer Status Panel (devStatusPanel) v1.0.1
 # Copyright (C) 2026 securecat
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

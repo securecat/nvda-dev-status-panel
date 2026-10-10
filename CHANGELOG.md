@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.1] - 2026-10-10
+
+### Changed
+
+- The last tested NVDA version is now 2026.2.
+
 ## [1.0.0] - 2026-10-10
 
 ### Added
@@ -89,6 +95,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ---
 
 # 更新履歴
+
+## [1.0.1] - 2026-10-10
+
+### 変更
+
+- 動作確認済みのNVDAバージョンを2026.2にしました。
 
 ## [1.0.0] - 2026-10-10
 
