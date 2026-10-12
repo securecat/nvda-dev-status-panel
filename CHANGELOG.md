@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.2] - 2026-10-13
+
+### Changed
+
+- The "Toggle mode" and "Refresh virtual buffer" buttons now show NVDA+Space and NVDA+F5 instead of the actual NVDA modifier key.
+
+### Fixed
+
+- On the international version of NVDA, settings left by the Japanese version of NVDA could make NonConvert, Convert and Escape appear as NVDA modifier keys.
+
 ## [1.0.1] - 2026-10-10
 
 ### Changed
@@ -95,6 +105,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ---
 
 # 更新履歴
+
+## [1.0.2] - 2026-10-13
+
+### 変更
+
+- 「モード切替」「仮想バッファ再読み込み」ボタンの2行目を、実際のNVDA制御キーではなく「NVDA+Space」「NVDA+F5」と表示するようにしました。
+
+### 修正
+
+- 本家版（国際版）のNVDAで、日本語版NVDAが残した設定により、NVDA制御キーとして無変換・変換・Escapeが表示されることがある問題を修正しました。
 
 ## [1.0.1] - 2026-10-10
 

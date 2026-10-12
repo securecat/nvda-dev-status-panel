@@ -108,11 +108,15 @@ Licensed under the GNU General Public License, version 2 or (at your option) any
 
 ## Changelog
 
-### [1.0.1] - 2026-10-10
+### [1.0.2] - 2026-10-13
 
 #### Changed
 
-- The last tested NVDA version is now 2026.2.
+- The "Toggle mode" and "Refresh virtual buffer" buttons now show NVDA+Space and NVDA+F5 instead of the actual NVDA modifier key.
+
+#### Fixed
+
+- On the international version of NVDA, settings left by the Japanese version of NVDA could make NonConvert, Convert and Escape appear as NVDA modifier keys.
 
 See [CHANGELOG.md](CHANGELOG.md) for full history.
 
@@ -228,11 +232,15 @@ GNU General Public License バージョン2、またはそれ以降のバージ�
 
 ## 更新履歴
 
-### [1.0.1] - 2026-10-10
+### [1.0.2] - 2026-10-13
 
 #### 変更
 
-- 動作確認済みのNVDAバージョンを2026.2にしました。
+- 「モード切替」「仮想バッファ再読み込み」ボタンの2行目を、実際のNVDA制御キーではなく「NVDA+Space」「NVDA+F5」と表示するようにしました。
+
+#### 修正
+
+- 本家版（国際版）のNVDAで、日本語版NVDAが残した設定により、NVDA制御キーとして無変換・変換・Escapeが表示されることがある問題を修正しました。
 
 全履歴は [CHANGELOG.md](CHANGELOG.md) を参照。
 
