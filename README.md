@@ -25,7 +25,7 @@ When verifying web pages or apps with NVDA, it is often hard to tell why somethi
 ## Requirements
 
 - NVDA 2026.1 or later
-- Tested with the Japanese version of NVDA 2026.2jp
+- Tested with NVDA 2026.2 (international version) and the Japanese version of NVDA 2026.2jp
 
 ## Installation
 
@@ -145,7 +145,7 @@ NVDAでWebページやアプリを検証していると、読み上げられな�
 ## 動作環境
 
 - NVDA 2026.1 以降
-- NVDA日本語版 2026.2jp で動作確認済み
+- NVDA 2026.2（国際版）と NVDA日本語版 2026.2jp で動作確認済み
 
 ## インストール
 

@@ -7,7 +7,7 @@
 # (at your option) any later version. See the file LICENSE for details.
 #
 # 開発者ステータスパネル：NVDAのモードや仮想バッファの状態を常時表示する検証用アドオン。
-# NVDA日本語版 2026.2jp で動作確認。表示言語はNVDAの言語設定に従う（英語／日本語）。
+# NVDA 2026.2（国際版）と NVDA日本語版 2026.2jp で動作確認。表示言語はNVDAの言語設定に従う（英語／日本語）。
 
 import ctypes
 import json
