@@ -1,6 +1,6 @@
 # NVDA Add-on: Developer Status Panel
 
-An NVDA add-on that keeps browse/focus mode, virtual buffer state and the focused object visible at all times. Key guides use your actual NVDA modifier key (e.g. NonConvert+Space). English and Japanese UI.
+An NVDA add-on that keeps browse/focus mode, virtual buffer state, the focused object and the active NVDA modifier keys visible at all times. English and Japanese UI.
 
 ## Why
 
@@ -12,10 +12,9 @@ When verifying web pages or apps with NVDA, it is often hard to tell why somethi
 - Shows the following, updated every 0.3 seconds:
   - Current mode (browse mode / focus mode)
   - Virtual buffer state (present or not, ready or loading, class name such as `Chromium`)
-  - Active NVDA modifier keys
+  - Active NVDA modifier keys, with their actual key names (including the NonConvert, Convert and Escape keys of the Japanese version of NVDA)
   - App name
   - Name, role and states of the focused object
-- Key guides use the actual key names of your NVDA modifier key settings, including the NonConvert, Convert and Escape keys of the Japanese version of NVDA
 - "Toggle mode" and "Refresh virtual buffer" buttons that return focus to the previous app and run NVDA's own commands
 - While you operate the panel, it keeps showing the state of the previous app
 - "Enable monitoring" checkbox to pause updates (almost zero load while paused)
@@ -121,7 +120,7 @@ See [CHANGELOG.md](CHANGELOG.md) for full history.
 
 # NVDAアドオン: 開発者ステータスパネル
 
-NVDAのブラウズモード／フォーカスモード、仮想バッファの状態、フォーカス中のオブジェクトを常時表示するNVDAアドオンです。操作ガイドは、実際に設定されているNVDA制御キーで表示します（例：無変換+Space）。日本語と英語に対応しています。
+NVDAのブラウズモード／フォーカスモード、仮想バッファの状態、フォーカス中のオブジェクト、有効なNVDA制御キーを常時表示するNVDAアドオンです。日本語と英語に対応しています。
 
 ## 作った理由
 
@@ -133,10 +132,9 @@ NVDAでWebページやアプリを検証していると、読み上げられな�
 - 次の情報を0.3秒ごとに更新して表示
   - 現在のモード（ブラウズモード／フォーカスモード）
   - 仮想バッファの状態（有無、準備完了／読み込み中、`Chromium` などのクラス名）
-  - 有効なNVDA制御キー
+  - 有効なNVDA制御キーを実際のキー名で（日本語版独自の無変換・変換・Escapeにも対応）
   - アプリ名
   - フォーカス中のオブジェクトの名前、ロール、状態
-- 操作ガイドを、実際のNVDA制御キーの設定に合わせたキー名で表示（日本語版独自の無変換・変換・Escapeにも対応）
 - 「モード切替」「仮想バッファ再読み込み」ボタン（直前のアプリにフォーカスを戻してから、NVDA本来のコマンドを実行）
 - パネルを操作している間は、直前のアプリの状態を表示し続ける
 - 「監視を有効にする」チェックボックスで更新を一時停止（停止中の負荷はほぼゼロ）

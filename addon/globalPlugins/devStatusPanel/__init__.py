@@ -145,11 +145,6 @@ def getNVDAKeyNames():
 	return names or ["NVDA"]
 
 
-def keyLabel(rest):
-	"""'F1' -> '無変換+F1'（英語表示では 'NonConvert+F1'）のように、主に使うNVDA制御キーで表記する。"""
-	return "%s+%s" % (getNVDAKeyNames()[0], rest)
-
-
 # ---------------------------------------------------------------------------
 # 状態の取得
 # ---------------------------------------------------------------------------
@@ -322,7 +317,7 @@ class StatusPanel(wx.Frame):
 		panel.SetSizer(root)
 
 		# ボタンの幅を最初から決めておくため、表示前にラベルを入れておく
-		self._updateButtonLabels()
+		self._setButtonLabels()
 		self.applyFont()
 		self.SetMinSize((360, 220))
 		self._restoreGeometry()
@@ -464,11 +459,12 @@ class StatusPanel(wx.Frame):
 			button.SetLabel(text)
 			self._fitButton(button)
 
-	def _updateButtonLabels(self):
-		# Translators: Button label shown in two lines. {key} is the actual key, e.g. NonConvert+Space.
-		self._setButton(self.toggleButton, _("Toggle mode\n({key})").format(key=keyLabel("Space")))
-		# Translators: Button label shown in two lines. {key} is the actual key, e.g. NonConvert+F5.
-		self._setButton(self.refreshButton, _("Refresh virtual buffer\n({key})").format(key=keyLabel("F5")))
+	def _setButtonLabels(self):
+		# 実際の制御キーはパネルの「NVDA制御キー」欄でわかるので、ボタンでは NVDA+〜 と表記する
+		# Translators: Button label shown in two lines. {key} is the key, NVDA+Space.
+		self._setButton(self.toggleButton, _("Toggle mode\n({key})").format(key="NVDA+Space"))
+		# Translators: Button label shown in two lines. {key} is the key, NVDA+F5.
+		self._setButton(self.refreshButton, _("Refresh virtual buffer\n({key})").format(key="NVDA+F5"))
 
 	def updateView(self, info, usingLast):
 		"""状態表示を更新する。"""
@@ -476,7 +472,6 @@ class StatusPanel(wx.Frame):
 			self._set(self.labels[key], info[key])
 		self._set(self.labels["nvdaKey"], " / ".join(getNVDAKeyNames()))
 		self._setNote(inUseNote() if usingLast else "")
-		self._updateButtonLabels()
 		# 折り返しで行数が変わる場合もあるので再配置
 		self.panel.Layout()
 
@@ -571,7 +566,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		action()
 
 	def doToggleMode(self):
-		# 無変換+Space と同じ処理（仮想バッファの強制生成も含む）
+		# NVDA+Space と同じ処理（仮想バッファの強制生成も含む）
 		globalCommands.commands.script_toggleVirtualBufferPassThrough(None)
 
 	def doRefreshBuffer(self):
