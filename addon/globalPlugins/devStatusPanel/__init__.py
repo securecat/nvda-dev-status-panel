@@ -102,20 +102,37 @@ def _confGet(section, key, default):
 		return default
 
 
+def _confFlag(section, key):
+	"""このNVDAの設定仕様に定義があり、値が True のときだけ True を返す。
+
+	本家版と日本語版は同じ nvda.ini を共有できるため、本家版でも日本語版が書いた項目が残っていることがある。
+	仕様に定義のない項目は文字列（"True"／"False"）のまま返り、"False" も真になってしまうので、仕様で判定する。
+	"""
+	try:
+		if key not in config.conf.spec[section]:
+			return False
+		return config.conf[section][key] is True
+	except Exception:
+		return False
+
+
 def getNVDAKeyNames():
 	"""現在有効なNVDA制御キーを、表示に使う優先順で返す。"""
 	names = []
-	# 日本語版独自の設定（本家版には存在しないので既定値付きで読む）
-	if _confGet("keyboard", "useNonConvertAsNVDAModifierKey", False):
+	# 日本語版独自の設定（本家版の設定仕様には存在しない）
+	if _confFlag("keyboard", "useNonConvertAsNVDAModifierKey"):
 		# Translators: Name of the IME NonConvert key (無変換) used as an NVDA modifier key.
 		names.append(_("NonConvert"))
-	if _confGet("keyboard", "useConvertAsNVDAModifierKey", False):
+	if _confFlag("keyboard", "useConvertAsNVDAModifierKey"):
 		# Translators: Name of the IME Convert key (変換) used as an NVDA modifier key.
 		names.append(_("Convert"))
-	if _confGet("keyboard", "useEscapeAsNVDAModifierKey", False):
+	if _confFlag("keyboard", "useEscapeAsNVDAModifierKey"):
 		# Translators: Name of the Escape key used as an NVDA modifier key.
 		names.append(_("Escape"))
-	flags = _confGet("keyboard", "NVDAModifierKeys", _NUMPAD_INSERT | _EXTENDED_INSERT)
+	try:
+		flags = int(_confGet("keyboard", "NVDAModifierKeys", _NUMPAD_INSERT | _EXTENDED_INSERT))
+	except (TypeError, ValueError):
+		flags = _NUMPAD_INSERT | _EXTENDED_INSERT
 	if flags & _EXTENDED_INSERT:
 		# Translators: Name of the Insert key used as an NVDA modifier key.
 		names.append(_("Insert"))
