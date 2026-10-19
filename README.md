@@ -29,10 +29,10 @@ When verifying web pages or apps with NVDA, it is often hard to tell why somethi
 
 ## Installation
 
-1. Open NVDA menu > Tools > Add-on Store
-2. Search `devStatusPanel` in  `Available add-ons`, and install it.
+1. Open NVDA menu > Tools > Add-on Store.
+2. On the "Available add-ons" tab, search for "devStatusPanel" or "Developer Status Panel", and install it.
 
-Install downloading the latest `.nvda-addon` file from [Releases](../../releases), from the Add-on Store in NVDA ("Install from external source"), too.
+You can also download the latest `.nvda-addon` file from [Releases](../../releases) and install it with "Install from external source" in the Add-on Store.
 Restart NVDA when prompted.
 
 ## Usage
@@ -158,7 +158,7 @@ NVDAでWebページやアプリを検証していると、読み上げられな�
 1. NVDAメニュー ＞ ツール ＞ アドオンストア を開きます。
 2. 利用可能なアドオンで「devStatusPanel」または「開発者ステータスパネル」で検索してインストールします。
 
-[Releases](../../releases) から最新の `.nvda-addon` ファイルをダウンロードしたファイルを、アドオンストアの「外部ソースからインストール」でインストールすることもできます。
+[Releases](../../releases) から最新の `.nvda-addon` ファイルをダウンロードして、アドオンストアの「外部ソースからインストール」でインストールすることもできます。
 確認が表示されたら、NVDAを再起動してください。
 
 ## 使い方
