@@ -61,7 +61,7 @@ Developer Status Panel is developed by an individual, so we can't promise a dead
 
 These expectations apply equally to human contributors and coding agents.
 
-The panel is built with wxPython. When you change the UI, keep the following in mind:
+The panel is built with wxPython and is not a web page. Even so, when you change the UI, keep the following accessibility principles in mind and follow them as closely as you can:
 
 - Use standard wx controls (`wx.Button`, `wx.CheckBox` and so on). Don't draw your own controls that NVDA cannot recognize
 - Don't disable controls with `Disable()` or `Enable(False)`
@@ -150,7 +150,7 @@ UIは WCAG 2.2 のレベル AA を目標とし、これを上限ではなく下�
 
 ここに挙げることは、人間の貢献者にもコーディングエージェントにも、同じように求めます。
 
-パネルは wxPython で作っています。UIを変更するときは、次を心がけてください。
+パネルは wxPython で作っていて、ウェブページではありません。それでも、UIを変更するときは、次のアクセシビリティの考え方を意識して、できるだけ守ってください。
 
 - wx の標準のコントロール（`wx.Button`・`wx.CheckBox` など）を使う。NVDAが認識できない独自のコントロールを描かない
 - `Disable()` や `Enable(False)` でコントロールを無効にしない
