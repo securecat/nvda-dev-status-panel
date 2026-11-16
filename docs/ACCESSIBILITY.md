@@ -55,7 +55,7 @@ Developer Status Panel is developed by an individual, so we can't promise a dead
 - We will reply on the issue once we've seen your report
 - If there is a workaround, we will share it
 - Before releasing a fix, we may ask you to confirm that it works for you
-- Fixes are recorded in [CHANGELOG.md](../CHANGELOG.md)
+- Fixes are recorded in [CHANGELOG.md](https://github.com/securecat/nvda-dev-status-panel/blob/main/CHANGELOG.md)
 
 ## Contributor Expectations
 
@@ -144,7 +144,7 @@ UIは WCAG 2.2 のレベル AA を目標とし、これを上限ではなく下�
 - 報告を確認したら、Issue で返信します
 - 回避策があれば、お知らせします
 - 修正をリリースする前に、問題が解消したかどうかの確認をお願いすることがあります
-- 修正の内容は [CHANGELOG.md](../CHANGELOG.md) に記載します
+- 修正の内容は [CHANGELOG.md](https://github.com/securecat/nvda-dev-status-panel/blob/main/CHANGELOG.md) に記載します
 
 ## 貢献者への期待
 
