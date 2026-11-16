@@ -11,24 +11,18 @@ This statement covers:
 
 For the UI, we target WCAG 2.2 Level AA, and we treat it as a minimum, not a ceiling. Some of our own rules are stricter than AA (see [Contributor Expectations](#contributor-expectations)). We have not had a third-party evaluation, so this is a target, not a claim of conformance.
 
-## How the Panel Behaves
-
-- The panel does not take focus when it appears, either when NVDA starts or when you show it with the shortcut or the menu. To move to the panel, use Alt+Tab
-- The Tab key moves through the "Toggle mode" and "Refresh virtual buffer" buttons, and then the "Enable monitoring" and "Keep this panel on top" checkboxes, in the order they appear
-- The status rows (Mode, Virtual buffer, NVDA key, App and Focus) are text, so the Tab key does not move to them. With NVDA, read them with object navigation
-- The status rows update every 0.3 seconds. To stop the updates, turn off "Enable monitoring"
-- The "Toggle mode" and "Refresh virtual buffer" buttons return focus to the previous app before running NVDA's own commands
-
 ## Supported Environments
 
 - Operating systems: tested on Windows 11. We have not yet tested Windows 10
 - Screen readers: tested with NVDA 2026.2 (international version) and the Japanese version of NVDA 2026.2jp, with both the English and Japanese interface. This is an NVDA add-on, so it does not run with other screen readers
 - Display settings: tested with a Windows contrast theme and with display scaling (such as 150%)
-- All features can be operated with a keyboard alone
+- All features can be operated with a keyboard alone. The panel does not take focus when it appears, so use Alt+Tab to move to it
 
 ## Known Limitations
 
 - **When focus moves within the panel, NVDA's focus highlight and speech may not follow it.** This happens when you switch to the panel, and when you turn on "Keep this panel on top." The focus itself is on the expected control, so pressing Space or Enter works as usual.
+- The status rows (Mode, Virtual buffer, NVDA key, App and Focus) are text, so you cannot move to them with the Tab key.
+  - Workaround: You can read them with NVDA's object navigation.
 - The panel's font is fixed to Meiryo 10 pt (or the system's sans-serif font if Meiryo is not available), and you cannot change its size in the panel.
   - Workaround: Windows display scaling enlarges the panel as well.
 
@@ -98,24 +92,18 @@ Suggestions about this statement or our approach to accessibility are also welco
 
 UIは WCAG 2.2 のレベル AA を目標とし、これを上限ではなく下限と考えています。AAより厳しい独自の基準もあります（[貢献者への期待](#貢献者への期待)を参照）。第三者による試験は受けていないため、これは目標であり、適合を表明するものではありません。
 
-## パネルの動作
-
-- パネルは、NVDAの起動時にも、ショートカットやメニューで表示したときにも、フォーカスを奪いません。パネルに移るには Alt+Tab を使います
-- Tabキーでは、「モード切替」「仮想バッファ再読み込み」ボタン、「監視を有効にする」「このパネルを最前面に表示」チェックボックスの順に、表示どおりの順序で移動します
-- 状態表示（モード、仮想バッファ、NVDA制御キー、アプリ、フォーカス）はテキストなので、Tabキーでは移動しません。NVDAでは、オブジェクトナビゲーションで読みます
-- 状態表示は0.3秒ごとに更新されます。更新を止めるには、「監視を有効にする」をオフにします
-- 「モード切替」「仮想バッファ再読み込み」ボタンは、直前のアプリにフォーカスを戻してから、NVDA本来のコマンドを実行します
-
 ## 対応している環境
 
 - OS：Windows 11 で動作を確認済み。Windows 10 ではまだ試していません
 - スクリーンリーダー：NVDA 2026.2（国際版）と NVDA日本語版 2026.2jp で、英語表示と日本語表示の両方を確認済み。NVDAのアドオンなので、ほかのスクリーンリーダーでは動きません
 - 表示の設定：Windows のコントラストテーマと、表示スケールの拡大（150%など）で確認済み
-- すべての機能を、キーボードだけで操作できます
+- すべての機能を、キーボードだけで操作できます。パネルは表示されてもフォーカスを奪わないので、パネルへは Alt+Tab で移ります
 
 ## 既知の制限
 
 - **パネル内でフォーカスが移ったときに、NVDAのフォーカスのハイライトや読み上げが追いつかないことがあります。** パネルに切り替えたときと、「このパネルを最前面に表示」をオンにしたときに起こります。フォーカス自体は目的のコントロールにあるので、SpaceキーやEnterキーはいつもどおり使えます。
+- 状態表示（モード、仮想バッファ、NVDA制御キー、アプリ、フォーカス）はテキストなので、Tabキーでは移動できません。
+  - 回避策：NVDAのオブジェクトナビゲーションで読めます。
 - パネルのフォントはメイリオ 10pt（メイリオがない場合はシステムのsans-serif系フォント）に固定で、パネルの中では大きさを変えられません。
   - 回避策：Windows の表示スケールを拡大すると、パネルも大きくなります。
 
