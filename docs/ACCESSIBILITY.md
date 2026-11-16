@@ -1,10 +1,8 @@
 # Accessibility
 
-Last updated: 2026-11-07
+Last updated: 2026-11-17
 
 ## Priorities and Goals
-
-Developer Status Panel is a tool for checking accessibility. When you test web pages or apps with NVDA, NVDA's state, such as browse mode or focus mode and whether the virtual buffer has finished loading, is not shown on screen, so it is hard to tell why something is not being read. This add-on shows that state in a small panel. The panel runs inside NVDA, so it also has to be usable for the people who use NVDA, such as developers and testers who are blind or have low vision.
 
 This statement covers:
 
@@ -89,11 +87,9 @@ Suggestions about this statement or our approach to accessibility are also welco
 
 # アクセシビリティ
 
-最終更新：2026-11-07
+最終更新：2026-11-17
 
 ## 優先事項と目標
-
-開発者ステータスパネルは、アクセシビリティを検証するための道具です。NVDAでWebページやアプリを検証するとき、ブラウズモードかフォーカスモードか、仮想バッファの読み込みは終わっているか、といったNVDAの状態は画面に表示されないため、読み上げられない原因がわかりにくくなります。このアドオンは、その状態を小さなパネルに表示します。パネルはNVDAの中で動くので、NVDAを使う人（視覚障害のある開発者や検証者など）にとっても使えるものである必要があります。
 
 この文書が対象とするのは、次のとおりです。
 
